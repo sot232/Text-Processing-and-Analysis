@@ -12,8 +12,8 @@ def get_rnlp(url_name):
     headers = {'user-agent': 'Jeong Kim (tjtekrkchlrh@gmail.com)'}
     response = r.get(initial_url, headers=headers)
     folder_path = '/Users/jeong-ugim/Documents/BYU/'\
-    '2018 Winter Semester/DIGHT 360/DIGHT 360/'\
-    'project_4/scrape/' + str(url_name)
+                  '2018 Winter Semester/DIGHT 360/DIGHT 360/'\
+                  'project_4/scrape/' + str(url_name)
     file = open(folder_path, 'w', encoding='utf8')
     print(response.text)
     file.write(response.text)
@@ -29,8 +29,8 @@ def get_hrefs(url_name):
     from bs4 import BeautifulSoup
     # testing : url_name = 'aa.html'
     folder_path = '/Users/jeong-ugim/Documents/BYU/' \
-    '2018 Winter Semester/DIGHT 360/DIGHT 360/' \
-    'project_4/scrape/' + str(url_name)
+                  '2018 Winter Semester/DIGHT 360/DIGHT 360/' \
+                  'project_4/scrape/' + str(url_name)
     file = open(folder_path, 'r', encoding='utf8')
     html = file.read()
     html_soup = BeautifulSoup(html, 'html.parser')
@@ -106,3 +106,4 @@ def main():
 # run the main function
 if __name__ == "__main__":
     main()
+    

@@ -1,0 +1,3 @@
+In 1-2 paragraphs, describe any differences you see between the lists. What can you learn about these registers based on these differences?
+
+It is difficult to analyze because I don't have many clues how each file is made, thus, I can't be exactly sure what each list means. However, I found out there are only a few words that its frequency is greater than four. In other words, most words only show up less than three times throughout each corpus. As I observe the words that often show up in each file, I could guess topics of each file. For example, these words are often appeared in one file. They are heat, motion, possible, state, thermodynamic, and so on. The topic of this file should be science. This observation should be very useful on many different industries.

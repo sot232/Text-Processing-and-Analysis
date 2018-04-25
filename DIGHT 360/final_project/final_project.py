@@ -483,7 +483,7 @@ model.add(Dense(1, activation='sigmoid'))
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # Fit the model
-history = model.fit(X_train, y_train, epochs=250, batch_size=20)
+history = model.fit(X, y, epochs=250, batch_size=20)
 
 #Plot results
 totalAcc = history.history['acc']

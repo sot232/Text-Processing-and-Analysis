@@ -4,7 +4,7 @@
 Created on Mon Mar 12 15:47:13 2018
 Final Project
 @author: jeong-ugim
-Purpose : 
+Purpose :
 By using different ratios
 between linguistic elements,
 I want to predict what year
@@ -18,6 +18,12 @@ from requests import get
 from bs4 import BeautifulSoup
 import nltk
 from string import punctuation as punct
+import numpy as np
+from numpy import genfromtxt
+from keras.models import Sequential
+from keras.layers import Dense
+from math import floor
+import matplotlib.pyplot as plt
 
 """
 If you want to do time sleep,
@@ -41,12 +47,14 @@ response = get(url)
 response.status_code
 html_req = response.text
 
+
 def clean(text):
     clean_r = re.compile('\r')
     clean_n = re.compile('\n')
     clear_r = re.sub(clean_r, '', text)
     clear_n = re.sub(clean_n, '', clear_r)
     return clear_n
+
 
 def is_noun(pos):
     return pos[:2] == 'NN'
@@ -61,6 +69,7 @@ def noun_tr(in_text):
              in nltk.pos_tag(in_text)
              if is_noun(pos)]
     return len(nouns) / len(in_text)
+
 
 def is_verb(pos):
     return pos[:2] == 'VB'
@@ -345,7 +354,6 @@ for each in li_match:
             if date_line.group():
                 clean_front = re.sub(clear_front, '', date_line.group())
                 clean_back = clean_front[:4]
-                #clean_back = re.sub(clear_back, '', clean_front)
                 expected_date = int(clean_back)
             tok_text = nltk.word_tokenize(raw_text)
             string = str(ttr(tok_text)) + "\t" + str(noun_tr(tok_text))
@@ -381,8 +389,8 @@ for each in li_match:
                       pro1_tr(tok_text), pro2_tr(tok_text),
                       pro3_tr(tok_text), punct_tr(tok_text),
                       str(expected_date),
-                      sep=',', file=out_file)            
-    i+=1
+                      sep=',', file=out_file)
+    i += 1
     # optional two lines
     if i > 15:
         break
@@ -391,14 +399,6 @@ for each in li_match:
 Deep-Learning Part
 BLACK BOX
 """
-
-import numpy as np
-from numpy import genfromtxt
-#import csv
-from keras.models import Sequential
-from keras.layers import Dense
-from math import floor
-import matplotlib.pyplot as plt
 
 with open('final_features.csv', encoding='utf-8') as csv_file:
     dataSet = genfromtxt('final_features.csv', delimiter=',')
@@ -434,7 +434,7 @@ X_test = xList[1]
 y_train = yList[0]
 y_test = yList[1]
 
-#Cast python lists to numpy arrays
+# Cast python lists to numpy arrays
 X_train = np.array(X_train)
 y_train = np.array(y_train)
 X_test = np.array(X_test)
@@ -457,17 +457,18 @@ inputSize = 18
 numHiddenLayers = 16
 outputSize = 1
 
-model.add(Dense(units=modelHeight, 
+model.add(Dense(units=modelHeight,
                 activation='relu',
                 input_shape=(inputSize,)))
 for i in range(numHiddenLayers - 1):
-    model.add(Dense(units=modelHeight, 
-                    activation='relu'))                   
-model.add(Dense(units=outputSize, 
+    model.add(Dense(units=modelHeight,
+                    activation='relu'))
+model.add(Dense(units=outputSize,
                 activation='relu'))
 
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-              
+model.compile(loss='binary_crossentropy',
+              optimizer='adam', metrics=['accuracy'])
+
 history = model.fit(X_train, y_train, epochs=150, batch_size=10)
 """
 
@@ -480,14 +481,15 @@ model.add(Dense(8, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))
 
 # Compile model
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+model.compile(loss='binary_crossentropy',
+              optimizer='adam', metrics=['accuracy'])
 
 # Fit the model
 history = model.fit(X, y, epochs=250, batch_size=20)
 
-#Plot results
+# Plot results
 totalAcc = history.history['acc']
-plt.figure(figsize=(10,10))
+plt.figure(figsize=(10, 10))
 plt.plot(totalAcc, label="Batch Size: 20")
 plt.title("Classification Accuracy Of NN\n")
 plt.xlabel("Epoch Step")
@@ -507,3 +509,4 @@ domains = ['a', 'b', 'c', 'd', 'e', 'f', 'g'
 
 url = 'http://www.gutenberg.org/browse/authors/' + str()
 """
+
